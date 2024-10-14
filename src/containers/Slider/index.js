@@ -12,7 +12,8 @@ const Slider = () => {
   );
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
+      /* MàJ .lenght - 1 sinon 1 de trop ==> carrousel blanc */
+      () => setIndex(index < byDateDesc.length-1 ? index + 1 : 0),
       5000
     );
   };
@@ -41,11 +42,13 @@ const Slider = () => {
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
+                /* A VOIR MAP comprend pas le '_' */
                 <input
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  /* Modif idx en index */
+                  checked={index === radioIdx}
                 />
               ))}
             </div>
