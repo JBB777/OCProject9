@@ -5,7 +5,7 @@ import { useData } from "../../contexts/DataContext";
 import Modal from "../Modal";
 import ModalEvent from "../ModalEvent";
 
-import "./style.css";
+import "./style.scss";
 
 const PER_PAGE = 9;
 

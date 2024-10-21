@@ -13,7 +13,41 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+
+  /*
+  last is undefined
+  + serai une liste des events, pas le dernier
+  renommage last en data pour récup la liste d'events.
+  nouvelle const last qui sera le dernier event (évite erreur last not defined pour débuter)
+  Vu avec chatGPT, récup useData dans data,
+  data && data.events pour être sur que les données existent / soient chargées.
+  A partir de là, je peux récup le dernier event ayant eu lieu en comparant les dates de 2 events
+  et en gardant le + récent des 2.
+  
+  */
+ // const {data, error} = useData();
+ // let last = null;
+//  if (data && data.events && data.events.length > 0) {
+//   // Récupération de l'événement le plus récent avec reduce
+//   last = data.events.reduce((mostRecent, current) => {
+//     return new Date(current.date) > new Date(mostRecent.date) ? current : mostRecent;
+//   });
+//  }
+// CODE CORRIGE PAR CHATGPT POUR SUPP ERREUR
+// Unexpected block statement surrounding arrow body; move the returned value immediately after the =>
+
+
+ const {data} = useData();
+ let last = null;
+ if (data && data.events && data.events.length > 0) {
+  // Récupération de l'événement le plus récent avec reduce
+  last = data.events.reduce((mostRecent, current) =>
+    new Date(current.date) > new Date(mostRecent.date) ? current : mostRecent
+  );
+}
+
+ /* FIN ESSAI */
+
   return <>
     <header>
       <Menu />
@@ -93,6 +127,11 @@ const Page = () => {
       </section>
       <div className="FormContainer" id="contact">
         <h2 className="Title">Contact</h2>
+        {/* 
+              Modal qui se s'ouvre pas
+              D'après Components, le state reste à false.
+              Check modif à true.
+         */}
         <Modal
           Content={
             <div className="ModalMessage--success">
@@ -106,7 +145,9 @@ const Page = () => {
         >
           {({ setIsOpened }) => (
             <Form
-              onSuccess={() => setIsOpened(true)}
+              onSuccess={() => {
+                console.log("On success en cliquant sur Envoyer");
+                setIsOpened(true)}}
               onError={() => null}
             />
           )}
@@ -121,7 +162,7 @@ const Page = () => {
           title={last?.title}
           date={new Date(last?.date)}
           small
-          label="boom"
+          label={last?.type}
         />
       </div>
       <div className="col contact">
