@@ -72,6 +72,7 @@ const Slider = () => {
                   Keys should be unique so that components maintain their identity across updates.
                 */
                 <input
+                  key={[event.title, '-', radioIdx].join()}
                   type="radio"
                   name="radio-button"
                   /* Modif idx en index 

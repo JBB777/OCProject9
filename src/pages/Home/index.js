@@ -131,6 +131,7 @@ const Page = () => {
               Modal qui se s'ouvre pas
               D'après Components, le state reste à false.
               Check modif à true.
+              ==> ajout onSuccess(true) dans Form
          */}
         <Modal
           Content={
@@ -146,7 +147,6 @@ const Page = () => {
           {({ setIsOpened }) => (
             <Form
               onSuccess={() => {
-                console.log("On success en cliquant sur Envoyer");
                 setIsOpened(true)}}
               onError={() => null}
             />
@@ -157,14 +157,18 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label={last?.type}
-        />
-      </div>
+        {/* Affichage de la carte uniquement si elle existe */}
+        { last ?
+          <EventCard
+            imageSrc={last.cover}
+            imageAlt={last.description}
+            title={last.title}
+            date={new Date(last.date)}
+            small
+            label={last.type}
+          /> : null
+        }
+      </div> 
       <div className="col contact">
         <h3>Contactez-nous</h3>
         <address>45 avenue de la République, 75000 Paris</address>
