@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, queryByAttribute } from "@testing-library/react";
 import Home from "./index";
+
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -28,8 +29,11 @@ describe("When Form is created", () => {
 
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
+  it("a list of events is displayed", async () => {
+    const getById = queryByAttribute.bind(null, 'id');
+    const dom = render(<Home />);
+    const events = getById(dom.container, 'events');
+    expect(events).toBeInTheDocument();
   });
   it("a list a people is displayed", async () => {
     render(<Home />);
@@ -43,7 +47,7 @@ describe("When a page is created", () => {
     const footer = screen.getByTestId('footer');
     expect(footer).toBeInTheDocument();
   });
-  it("an event card, with the last event, is displayed", () => {
+  it("an event card, with the last event, is displayed", async () => {
     // to implement
   });
 });
