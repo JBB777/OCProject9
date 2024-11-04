@@ -10,7 +10,7 @@ const Slider = () => {
   let byDateDesc = null;
   if (data && data.focus && data.focus.length > 0) {
       byDateDesc = data?.focus.sort((evtA, evtB) =>
-      new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+      new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
     );
   }
   useEffect(() => {
